@@ -25,15 +25,22 @@ elif [ -e "pkgbuild.install" ]; then
 	install=pkgbuild.install
 fi
 
-build() {
+
+# A função 'prepare' é chamada antes do build para descompactar o tarball
+prepare() {
   cd "$srcdir/umc"
-  autoreconf -fi  # Garante que os arquivos de configuração sejam gerados
+  # Descompacta o tarball na pasta src
+  tar -xzf umc-0.2.tar.gz
+}
+
+build() {
+	cd "$srcdir/umc/umc-$pkgver"
   ./configure --prefix=/usr
   make
 }
 
 package() {
-	cd "$srcdir/umc-$pkgver/src"
+	cd "$srcdir/umc/umc-$pkgver/src"
 	install -Dm755 umc "$pkgdir/usr/bin/umc"
 
 	# Install license file if present
