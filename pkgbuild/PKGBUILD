@@ -15,7 +15,7 @@ url="https://sourceforge.net/projects/umc/"
 license=("GPL")
 depends=("gtk2")
 makedepends=("git" "autoconf" "automake")
-source=("git+https://github.com/chililinux/${pkgname}.git#tag=v$pkgver")
+source=("git+https://github.com/chililinux/${pkgname}.git")
 sha256sums=("SKIP")
 
 # Automatically detect and use the correct install file
