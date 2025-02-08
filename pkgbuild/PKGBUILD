@@ -14,7 +14,7 @@ arch=("x86_64")
 url="https://sourceforge.net/projects/umc/"
 license=("GPL")
 depends=("gtk2")
-source=("umc-$pkgver.tar.gz")
+source=("git+https://github.com/chililinux/${pkgname}.git")
 sha256sums=("SKIP")
 
 # Automatically detect and use the correct install file
