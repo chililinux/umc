@@ -14,7 +14,8 @@ arch=("x86_64")
 url="https://sourceforge.net/projects/umc/"
 license=("GPL")
 depends=("gtk2")
-source=("git+https://github.com/chililinux/${pkgname}.git")
+makedepends=("git" "autoconf" "automake")
+source=("git+https://github.com/chililinux/${pkgname}.git#tag=v$pkgver")
 sha256sums=("SKIP")
 
 # Automatically detect and use the correct install file
@@ -24,16 +25,11 @@ elif [ -e "pkgbuild.install" ]; then
 	install=pkgbuild.install
 fi
 
-prepare() {
-	cd "${srcdir}/${pkgname}"
-	# Add any preparation steps here, if needed
-	# For example: patch -p1 < "${srcdir}/patch-file.patch"
-}
-
 build() {
-	cd "$srcdir/$pkgname"
-	./configure
-	make
+  cd "$srcdir/umc"
+  autoreconf -fi  # Garante que os arquivos de configuração sejam gerados
+  ./configure --prefix=/usr
+  make
 }
 
 package() {
