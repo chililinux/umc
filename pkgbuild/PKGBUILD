@@ -1,20 +1,46 @@
+# Maintainer: Seu Nome <seu@email.com>
+pkgname=umc
+pkgver=0.2
+pkgrel=1
+pkgdesc="Universal Modeline Calculator (UMC) - Calculadora de Modelines para Xorg"
+arch=("x86_64")
+url="https://sourceforge.net/projects/umc/"
+license=("GPL")
+depends=("gtk2")
+source=("umc-$pkgver.tar.gz")
+sha256sums=("SKIP")
+
+build() {
+	cd "$srcdir/umc-$pkgver"
+	./configure
+	make
+}
+
+package() {
+	cd "$srcdir/umc-$pkgver/src"
+	install -Dm755 umc "$pkgdir/usr/bin/umc"
+	#install -Dm644 umc.desktop "$pkgdir/usr/share/applications/umc.desktop"
+	#install -Dm644 umc.png "$pkgdir/usr/share/pixmaps/umc.png"
+}
+
 # Maintainer: Vilmar Catafesta <vcatafesta@gmail.com>
 
-pkgname=chili-pkgname
-pkgdesc="Package template for Chililinux"
+pkgname=umc
+pkgdesc="Universal Modeline Calculator (UMC) - Calculadora de Modelines para Xorg"
+pkgver=0.2
+pkgrel=1
 #depends=('')
 #makedepends=('')
 #optdepends=('')
 #conflicts=('')
 #provides=('')
 #replaces=('')
-pkgver=$(date +%Y%m%d)
-pkgrel=$(date +%H%M)
-arch=('any')
-license=('MIT')
-url="https://github.com/chililinux/${pkgname}"
-source=("git+${url}.git")
-md5sums=('SKIP')
+arch=("x86_64")
+url="https://sourceforge.net/projects/umc/"
+license=("GPL")
+depends=("gtk2")
+source=("umc-$pkgver.tar.gz")
+sha256sums=("SKIP")
 
 # Automatically detect and use the correct install file
 if [ -e "${pkgname}.install" ]; then
@@ -30,34 +56,14 @@ prepare() {
 }
 
 build() {
-	cd "${srcdir}/${pkgname}"
-	# Add build steps here, if needed
-	# For example: make
-}
-
-check() {
-	cd "${srcdir}/${pkgname}"
-	# Add check/test steps here, if needed
-	# For example: make check
+	cd "$srcdir/umc-$pkgver"
+	./configure
+	make
 }
 
 package() {
-	cd "${srcdir}/${pkgname}"
-
-	# Determine the correct source directory
-	if [ -d "${pkgname}" ]; then
-		srcdir="${srcdir}/${pkgname}/${pkgname}"
-	else
-		srcdir="${srcdir}/${pkgname}"
-	fi
-
-	# Install files
-	local dirs=("usr" "etc" "opt")
-	for dir in "${dirs[@]}"; do
-		if [ -d "${srcdir}/${dir}" ]; then
-			cp -a "${srcdir}/${dir}" "${pkgdir}/"
-		fi
-	done
+	cd "$srcdir/umc-$pkgver/src"
+	install -Dm755 umc "$pkgdir/usr/bin/umc"
 
 	# Install license file if present
 	if [ -f "LICENSE" ]; then
